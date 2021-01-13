@@ -1,0 +1,3 @@
+@mixin box-shadow($shade: 1px) {
+  box-shadow: $shade $shade 3px rgba(0, 0, 0, 0.1);
+}

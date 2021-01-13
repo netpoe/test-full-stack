@@ -1,0 +1,22 @@
+$fontSize: 16px;
+
+$xs: 0.5rem;
+$sm: 1rem;
+$md: 1.7rem;
+$lg: 2.8rem;
+
+$colors: (
+  whitesmoke: whitesmoke,
+  white: white,
+  textSecondary: rgba(0, 0, 0, 0.7),
+  error: red,
+);
+
+$fontSizes: (
+  h6: $fontSize * 0.9,
+  caption: $fontSize * 0.8,
+);
+
+$fontWeights: (
+  bold: 700,
+);

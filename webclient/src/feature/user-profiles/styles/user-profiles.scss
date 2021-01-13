@@ -1,0 +1,66 @@
+@import "../../../common/styles/variables.scss";
+@import "../../../common/styles/mixins.scss";
+
+#user-profiles {
+  padding: $lg;
+}
+
+#list {
+  display: flex;
+  flex-basis: 33.33%;
+  margin-left: -$sm;
+  margin-right: -$sm;
+  .item {
+    padding: $sm;
+    > div {
+      background-color: map-get($colors, white);
+      border-radius: $xs;
+      @include box-shadow();
+    }
+    &:hover {
+      > div {
+        @include box-shadow(3px);
+      }
+    }
+  }
+  .actions {
+    padding: $sm;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .profile-picture {
+    padding: $sm;
+    display: flex;
+    justify-content: center;
+    span {
+      background-color: map-get($colors, whitesmoke);
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+    }
+  }
+  .name-created-at {
+    padding: $sm;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .name {
+      text-transform: uppercase;
+      font-weight: map-get($fontWeights, bold);
+    }
+    .created-at {
+      font-size: map-get($fontSizes, caption);
+      span {
+        color: map-get($colors, error);
+      }
+    }
+  }
+  .description {
+    padding: $sm;
+    margin: 0;
+    color: map-get($colors, textSecondary);
+    font-size: map-get($fontSizes, h6);
+  }
+}

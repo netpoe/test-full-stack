@@ -1,0 +1,37 @@
+@import "./common/styles/variables.scss";
+@import "./common/styles/mixins.scss";
+
+html {
+  font-size: $fontSize;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@each $name, $value in $colors {
+  .bg-#{$name} {
+    background-color: $value;
+  }
+}
+
+$maxWidth: (
+  large: 80vw,
+);
+
+@each $name, $value in $maxWidth {
+  .max-width-#{$name} {
+    max-width: $value;
+    margin: 0 auto;
+  }
+}
