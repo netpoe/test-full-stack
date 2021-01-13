@@ -1,7 +1,7 @@
 import {
   CreateUserInput,
   GetUsersInput,
-  UpdateUserInput,
+  UpdateUserInput
 } from "@sf-test/shared/graphql/generated/schema";
 import { createUser, getUsers, updateUser } from "./resolvers";
 
