@@ -1,6 +1,6 @@
 type Query {
   getUserByID(id: String!): User!
-  getUsers(getUsersInput: GetUsersInput!): [User]!
+  getUsers(getUsersInput: GetUsersInput!): UsersWithPaginationParams!
 }
 
 type Mutation {
@@ -17,6 +17,11 @@ type User {
   description: String!
   createdAt: String!
   updatedAt: String!
+}
+
+type UsersWithPaginationParams {
+  items: [User]
+  exclusiveStartKey: String
 }
 
 input CreateUserInput {
@@ -37,5 +42,6 @@ input UpdateUserInput {
 }
 
 input GetUsersInput {
-  cursor: String!
+  pageSize: String!
+  exclusiveStartKey: String
 }
