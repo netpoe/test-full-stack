@@ -7,11 +7,11 @@
 
 #list {
   display: flex;
-  flex-basis: 33.33%;
   margin-left: -$sm;
   margin-right: -$sm;
   .item {
     padding: $sm;
+    width: 33.33%;
     > div {
       background-color: map-get($colors, white);
       border-radius: $xs;
@@ -35,6 +35,8 @@
     justify-content: center;
     span {
       background-color: map-get($colors, whitesmoke);
+      background-repeat: no-repeat;
+      background-size: cover;
       width: 140px;
       height: 140px;
       border-radius: 50%;

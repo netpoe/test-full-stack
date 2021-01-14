@@ -3,6 +3,7 @@ import React from "react";
 import { Container } from "../../../common/component";
 import DependencyContext from "../../../common/context/DependencyContext";
 import { colors, maxWidth } from "../../../common/theme/light";
+import { ProfilePicture } from "../component";
 import { UserProfilesModel } from "../model/UserProfilesModel";
 import "../styles/user-profiles.scss";
 
@@ -41,7 +42,7 @@ const Component: React.FC<{}> = () => {
                     <span className="edit">icon</span>
                   </div>
                   <div className="profile-picture">
-                    <span style={{ backgroundImage: `url()` }}></span>
+                    <ProfilePicture />
                   </div>
                   <div className="name-created-at">
                     <span className="name">{item?.name}</span>
