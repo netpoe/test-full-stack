@@ -1,5 +1,15 @@
 @import "./common/styles/variables.scss";
 @import "./common/styles/mixins.scss";
+@import "~bootstrap/scss/bootstrap-grid.scss";
+@import "~bootstrap/scss/mixins/_border-radius.scss";
+@import "~bootstrap/scss/mixins/_transition.scss";
+@import "~bootstrap/scss/mixins/_gradients.scss";
+@import "~bootstrap/scss/mixins/_forms.scss";
+@import "~bootstrap/scss/mixins/_buttons.scss";
+@import "~bootstrap/scss/mixins/_box-shadow.scss";
+@import "~bootstrap/scss/_reboot.scss";
+@import "~bootstrap/scss/_forms.scss";
+@import "~bootstrap/scss/_buttons.scss";
 
 html {
   font-size: $fontSize;
@@ -34,4 +44,85 @@ $maxWidth: (
     max-width: $value;
     margin: 0 auto;
   }
+}
+
+.card {
+  @include box-shadow();
+  background-color: map-get($colors, white);
+  border-radius: $xs;
+  min-height: 290px;
+  width: 100%;
+}
+
+#modal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  font-weight: map-get($fontWeights, bold);
+  // &:hover {
+  //   cursor: pointer;
+  // }
+  // &.btn-default {
+  //   background-color: map-get($colors, white);
+  //   border: 2px solid map-get($colors, gray5);
+  // }
+  // &.btn-outline {
+  //   background-color: transparent;
+  // }
+  // &.btn-large {
+  //   padding-bottom: $sm;
+  //   padding-top: $sm;
+  //   padding-right: $md;
+  //   padding-left: $md;
+  //   border-radius: map-get($borderRadius, large);
+  // }
+  &.full-width {
+    width: 100%;
+  }
+}
+
+// FORM
+
+label {
+  display: block;
+  font-weight: map-get($fontWeights, bold);
+  font-size: map-get($fontSizes, caption);
+  margin-bottom: $xs;
+}
+
+input {
+  box-sizing: border-box;
+}
+
+// .input {
+//   background-color: white;
+//   padding-bottom: $xs;
+//   padding-top: $xs;
+//   padding-right: $sm;
+//   padding-left: $sm;
+//   border: 1px solid map-get($colors, gray5);
+//   display: block;
+//   &.full-width {
+//     min-width: 100%;
+//     max-width: 100%;
+//   }
+//   border-radius: map-get($borderRadius, large);
+// }
+
+fieldset {
+  margin-bottom: $sm;
 }

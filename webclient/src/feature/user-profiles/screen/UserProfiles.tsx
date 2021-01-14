@@ -1,13 +1,17 @@
 import moment from "moment";
 import React from "react";
-import { Container } from "../../../common/component";
+import { Container, Modal } from "../../../common/component";
 import DependencyContext from "../../../common/context/DependencyContext";
 import { colors, maxWidth } from "../../../common/theme/light";
-import { ProfilePicture } from "../component";
+import { CreateUserCard, ProfilePicture } from "../component";
 import { UserProfilesModel } from "../model/UserProfilesModel";
 import "../styles/user-profiles.scss";
 
 const Component: React.FC<{}> = () => {
+  const [isCreateUserModalVisible, displayCreateUserModal] = React.useState(
+    false
+  );
+
   const container = React.useContext(DependencyContext);
   const userProfilesModel = container.get<UserProfilesModel>(
     UserProfilesModel.type
@@ -17,11 +21,21 @@ const Component: React.FC<{}> = () => {
     execute: executeGetUsersQuery,
     data: getUsersData,
     error: getUsersError,
+    loading: isGetUsersQueryLoading,
   } = userProfilesModel.useGetUsersQuery();
 
   React.useEffect(() => {
     executeGetUsersQuery({ pageSize: "6" });
   }, []);
+
+  const onDisplayCreateUserModal = () => {
+    displayCreateUserModal(!isCreateUserModalVisible);
+  };
+
+  const onCreateUserSuccess = () => {
+    executeGetUsersQuery({ pageSize: "6" });
+    onDisplayCreateUserModal();
+  };
 
   return (
     <Container
@@ -29,15 +43,53 @@ const Component: React.FC<{}> = () => {
       maxWidth={maxWidth.large}
       minHeight="100vh"
     >
+      <Modal visible={isCreateUserModalVisible}>
+        <CreateUserCard
+          onCancel={onDisplayCreateUserModal}
+          onSuccess={onCreateUserSuccess}
+        />
+      </Modal>
       <div id="user-profiles">
         <h1>Users List</h1>
-        {!Boolean(getUsersData?.items) ? (
-          <section>No results to show</section>
+
+        {isGetUsersQueryLoading ? (
+          <p>Loading...</p>
+        ) : !Boolean(getUsersData?.items) ? (
+          <section id="list">
+            <article className="item">
+              <div className="card">
+                <div className="actions"></div>
+                <div className="profile-picture">
+                  <ProfilePicture preventImageFetch={true} />
+                </div>
+                <div className="name-created-at">
+                  <span className="name">No items</span>
+                </div>
+                <p className="description">Create your first one</p>
+              </div>
+            </article>
+          </section>
         ) : (
           <section id="list">
+            <article className="item">
+              <div className="card">
+                <div className="actions"></div>
+                <div className="profile-picture">
+                  <ProfilePicture preventImageFetch={true} />
+                </div>
+                <div className="name-created-at">
+                  <button
+                    className="btn btn-outline-primary full-width btn-lg"
+                    onClick={onDisplayCreateUserModal}
+                  >
+                    Create a user
+                  </button>
+                </div>
+              </div>
+            </article>
             {getUsersData?.items?.map((item, i) => (
               <article className="item" key={i}>
-                <div>
+                <div className="card">
                   <div className="actions">
                     <span className="edit">icon</span>
                   </div>

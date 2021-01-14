@@ -2,7 +2,11 @@ import React from "react";
 import { createApi } from "unsplash-js";
 import "../styles/user-profiles.scss";
 
-const Component: React.FC<{}> = () => {
+type Props = {
+  preventImageFetch?: boolean;
+};
+
+const Component: React.FC<Props> = ({ preventImageFetch = false }) => {
   const unsplash = createApi({
     accessKey: "M7OEt-7IehthODdsfvQlaxxt6KfnpktzZYekCrHqyKw",
   });
@@ -10,6 +14,10 @@ const Component: React.FC<{}> = () => {
   const [url, setURL] = React.useState();
 
   React.useEffect(() => {
+    if (preventImageFetch) {
+      return;
+    }
+
     getRandomProfilePic();
   }, []);
 

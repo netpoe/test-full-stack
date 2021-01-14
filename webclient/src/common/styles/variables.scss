@@ -10,6 +10,7 @@ $colors: (
   white: white,
   textSecondary: rgba(0, 0, 0, 0.7),
   error: red,
+  gray5: rgb(124, 123, 143),
 );
 
 $fontSizes: (
@@ -19,4 +20,8 @@ $fontSizes: (
 
 $fontWeights: (
   bold: 700,
+);
+
+$borderRadius: (
+  large: 5px,
 );

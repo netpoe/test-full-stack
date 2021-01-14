@@ -6,21 +6,16 @@
 }
 
 #list {
-  display: flex;
-  margin-left: -$sm;
-  margin-right: -$sm;
+  @include make-row($sm);
+  flex-wrap: wrap;
   .item {
     padding: $sm;
     width: 33.33%;
-    > div {
-      background-color: map-get($colors, white);
-      border-radius: $xs;
-      @include box-shadow();
-    }
     &:hover {
       > div {
         @include box-shadow(3px);
       }
+      cursor: pointer;
     }
   }
   .actions {
@@ -64,5 +59,30 @@
     margin: 0;
     color: map-get($colors, textSecondary);
     font-size: map-get($fontSizes, h6);
+  }
+}
+
+#create-user-card {
+  width: 74vw;
+  .card {
+    background-color: map-get($colors, whitesmoke);
+  }
+  .title {
+    padding: $md;
+  }
+  .map-form {
+    padding: $md;
+    .map-container {
+      width: 40%;
+      padding: $sm;
+    }
+    .form-container {
+      width: 60%;
+      padding: $sm;
+    }
+  }
+  .actions {
+    .action {
+    }
   }
 }
