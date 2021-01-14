@@ -1,9 +1,27 @@
+import moment from "moment";
 import React from "react";
 import { Container } from "../../../common/component";
+import DependencyContext from "../../../common/context/DependencyContext";
 import { colors, maxWidth } from "../../../common/theme/light";
+import { UserProfilesModel } from "../model/UserProfilesModel";
 import "../styles/user-profiles.scss";
 
 const Component: React.FC<{}> = () => {
+  const container = React.useContext(DependencyContext);
+  const userProfilesModel = container.get<UserProfilesModel>(
+    UserProfilesModel.type
+  );
+
+  const {
+    execute: executeGetUsersQuery,
+    data: getUsersData,
+    error: getUsersError,
+  } = userProfilesModel.useGetUsersQuery();
+
+  React.useEffect(() => {
+    executeGetUsersQuery({ pageSize: "6" });
+  }, []);
+
   return (
     <Container
       bgColor={colors.whitesmoke}
@@ -12,61 +30,32 @@ const Component: React.FC<{}> = () => {
     >
       <div id="user-profiles">
         <h1>Users List</h1>
-        <section id="list">
-          <article className="item">
-            <div>
-              <div className="actions">
-                <span className="edit">icon</span>
-              </div>
-              <div className="profile-picture">
-                <span style={{ backgroundImage: `url()` }}></span>
-              </div>
-              <div className="name-created-at">
-                <span className="name">A Name</span>
-                <div className="created-at">
-                  <span>created:</span> 2021-01-01
+        {!Boolean(getUsersData?.items) ? (
+          <section>No results to show</section>
+        ) : (
+          <section id="list">
+            {getUsersData?.items?.map((item, i) => (
+              <article className="item" key={i}>
+                <div>
+                  <div className="actions">
+                    <span className="edit">icon</span>
+                  </div>
+                  <div className="profile-picture">
+                    <span style={{ backgroundImage: `url()` }}></span>
+                  </div>
+                  <div className="name-created-at">
+                    <span className="name">{item?.name}</span>
+                    <div className="created-at">
+                      <span>created:</span>{" "}
+                      {moment(item?.createdAt).format("DD MMM YYYY")}
+                    </div>
+                  </div>
+                  <p className="description">{item?.description}</p>
                 </div>
-              </div>
-              <p className="description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              </p>
-            </div>
-          </article>
-          <article className="item">
-            <div>
-              <div className="actions">
-                <span className="edit">icon</span>
-              </div>
-              <div className="profile-picture">
-                <span style={{ backgroundImage: `url()` }}></span>
-              </div>
-              <div className="name-created-at">
-                <span className="name">A Name</span>
-                <span className="created-at">2021-01-01</span>
-              </div>
-              <p className="description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              </p>
-            </div>
-          </article>
-          <article className="item">
-            <div>
-              <div className="actions">
-                <span className="edit">icon</span>
-              </div>
-              <div className="profile-picture">
-                <span style={{ backgroundImage: `url()` }}></span>
-              </div>
-              <div className="name-created-at">
-                <span className="name">A Name</span>
-                <span className="created-at">2021-01-01</span>
-              </div>
-              <p className="description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              </p>
-            </div>
-          </article>
-        </section>
+              </article>
+            ))}
+          </section>
+        )}
       </div>
     </Container>
   );
