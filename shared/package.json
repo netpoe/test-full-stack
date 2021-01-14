@@ -1,0 +1,21 @@
+{
+  "name": "@sf-test/shared",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "directories": {
+    "build": "build"
+  },
+  "scripts": {
+    "clean": "rimraf build",
+    "compile": "tsc",
+    "publish:prepare": "npm run clean && npm run schema:generate && npm run compile && cp package.json build",
+    "schema:generate": "graphql-codegen",
+    "scripts:link": "sh scripts/link.sh"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.17.7",
+    "@graphql-codegen/typescript": "^1.17.7",
+    "graphql": "^15.4.0"
+  }
+}

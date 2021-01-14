@@ -1,0 +1,47 @@
+type Query {
+  getUserByID(id: String!): User!
+  getUsers(getUsersInput: GetUsersInput!): UsersWithPaginationParams!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  deleteUserByID(deleteUserByIdInput: String!): Boolean!
+}
+
+type User {
+  id: String!
+  name: String!
+  dob: String!
+  address: String!
+  description: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type UsersWithPaginationParams {
+  items: [User]
+  exclusiveStartKey: String
+}
+
+input CreateUserInput {
+  name: String!
+  dob: String!
+  address: String!
+  description: String!
+}
+
+input UpdateUserInput {
+  id: String!
+  name: String!
+  dob: String!
+  address: String!
+  description: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+input GetUsersInput {
+  pageSize: String!
+  exclusiveStartKey: String
+}
