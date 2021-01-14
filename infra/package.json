@@ -5,10 +5,13 @@
     "infra": "bin/infra.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "npm run clean && tsc",
+    "clean": "rimraf build",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "scripts:link": "sh scripts/link.sh",
+    "postinstall": "npm run scripts:link"
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.83.0",

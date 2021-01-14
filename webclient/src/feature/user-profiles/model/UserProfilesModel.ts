@@ -12,7 +12,11 @@ import { API, graphqlOperation } from "aws-amplify";
 import { injectable } from "inversify";
 import React from "react";
 import "reflect-metadata";
-import { createUserMutation, getUsersQuery } from "../queries";
+import {
+  createUserMutation,
+  getUsersQuery,
+  updateUserMutation,
+} from "../queries";
 
 type GetUsersQueryResult = Pick<Query, "getUsers">;
 type CreateUserQueryResult = Pick<Mutation, "createUser">;
@@ -129,7 +133,9 @@ export class UserProfilesModel {
         try {
           setIsLoading(true);
 
-          const query = graphqlOperation(createUserMutation, {
+          delete (variables as any).updatedAt;
+
+          const query = graphqlOperation(updateUserMutation, {
             updateUserInput: variables,
           });
 

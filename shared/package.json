@@ -9,7 +9,7 @@
   "scripts": {
     "clean": "rimraf build",
     "compile": "tsc",
-    "publish:prepare": "npm run clean && npm run schema:generate && npm run compile && cp package.json build",
+    "publish:prepare": "npm run clean && npm run schema:generate && npm run compile && cp package.json build && cp graphql/schema.graphql build/graphql",
     "schema:generate": "graphql-codegen",
     "scripts:link": "sh scripts/link.sh"
   },

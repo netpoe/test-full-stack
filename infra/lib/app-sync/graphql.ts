@@ -5,7 +5,9 @@ export class AppSyncGraphQLStack {
   provision(parent: cdk.Stack) {
     const api = new appsync.GraphqlApi(parent, "Api", {
       name: "superformula_test-full-stack",
-      schema: appsync.Schema.fromAsset("graphql/schema.graphql"),
+      schema: appsync.Schema.fromAsset(
+        "node_modules/@sf-test/shared/graphql/schema.graphql"
+      ),
       authorizationConfig: {
         defaultAuthorization: {
           authorizationType: appsync.AuthorizationType.API_KEY,

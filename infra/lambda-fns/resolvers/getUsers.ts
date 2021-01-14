@@ -1,4 +1,4 @@
-import { GetUsersInput } from "../types";
+import { GetUsersInput } from "@sf-test/shared/graphql/generated/schema";
 
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
@@ -16,7 +16,7 @@ export async function getUsers({ pageSize, exclusiveStartKey }: GetUsersInput) {
   };
 
   if (Boolean(exclusiveStartKey)) {
-    params.ExclusiveStartKey = { item_id: exclusiveStartKey };
+    params.ExclusiveStartKey = { item_id: exclusiveStartKey as string };
   }
 
   try {

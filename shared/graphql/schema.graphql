@@ -37,6 +37,7 @@ input UpdateUserInput {
   dob: String!
   address: String!
   description: String!
+  createdAt: String!
 }
 
 input GetUsersInput {

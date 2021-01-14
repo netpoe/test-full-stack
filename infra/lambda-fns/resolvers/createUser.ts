@@ -1,17 +1,18 @@
-import { CreateUserInput } from "../types";
+import { CreateUserInput } from "@sf-test/shared/graphql/generated/schema";
 
 const AWS = require("aws-sdk");
 var uuid = require("uuid");
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 export async function createUser(input: CreateUserInput) {
-  input.createdAt = new Date().toISOString();
-  input.updatedAt = new Date().toISOString();
-  input.id = uuid.v4();
-
   const params = {
     TableName: process.env.USER_TABLE,
-    Item: input,
+    Item: {
+      ...input,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      id: uuid.v4(),
+    },
   };
 
   try {
