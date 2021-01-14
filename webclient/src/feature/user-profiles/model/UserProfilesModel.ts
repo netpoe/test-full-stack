@@ -4,6 +4,7 @@ import {
   GetUsersInput,
   Mutation,
   Query,
+  UpdateUserInput,
   User,
   UsersWithPaginationParams,
 } from "@sf-test/shared/graphql/generated/schema";
@@ -15,6 +16,7 @@ import { createUserMutation, getUsersQuery } from "../queries";
 
 type GetUsersQueryResult = Pick<Query, "getUsers">;
 type CreateUserQueryResult = Pick<Mutation, "createUser">;
+type UpdateUserQueryResult = Pick<Mutation, "updateUser">;
 
 @injectable()
 export class UserProfilesModel {
@@ -99,6 +101,53 @@ export class UserProfilesModel {
           }
 
           setData((result as CreateUserQueryResult).createUser);
+        } catch (error) {
+          console.error(error);
+          setError(error);
+        }
+
+        setIsLoading(false);
+      },
+      error,
+      data,
+      loading,
+    };
+  }
+
+  useUpdateUserMutation(): {
+    execute: (variables: UpdateUserInput) => Promise<void>;
+    error?: Error;
+    data?: User;
+    loading: boolean;
+  } {
+    const [loading, setIsLoading] = React.useState(false);
+    const [error, setError] = React.useState<Error>();
+    const [data, setData] = React.useState<User>();
+
+    return {
+      execute: async (variables) => {
+        try {
+          setIsLoading(true);
+
+          const query = graphqlOperation(createUserMutation, {
+            updateUserInput: variables,
+          });
+
+          const { data: result, errors } = (await API.graphql(
+            query
+          )) as GraphQLResult<UpdateUserQueryResult>;
+
+          if (!Boolean(result?.updateUser)) {
+            setError(new Error("No data!"));
+            return;
+          }
+
+          if (errors?.length) {
+            setError(errors[0]);
+            return;
+          }
+
+          setData((result as UpdateUserQueryResult).updateUser);
         } catch (error) {
           console.error(error);
           setError(error);
