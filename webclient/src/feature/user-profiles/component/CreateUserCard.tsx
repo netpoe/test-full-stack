@@ -1,7 +1,12 @@
 import { CreateUserInput } from "@sf-test/shared/graphql/generated/schema";
+import debounce from "lodash/debounce";
+import mapboxgl from "mapbox-gl";
 import React, { ChangeEvent } from "react";
 import DependencyContext from "../../../common/context/DependencyContext";
 import { UserProfilesModel } from "../model/UserProfilesModel";
+
+mapboxgl.accessToken = UserProfilesModel.mapbox_access_token;
+let map: mapboxgl.Map;
 
 type Props = {
   onCancel: () => void;
@@ -30,6 +35,24 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
     loading: isCreateUserQueryLoading,
   } = userProfilesModel.useCreateUserMutation();
 
+  const {
+    execute: executeSearchLocation,
+    data: searchLocationData,
+    error: searchLocationError,
+    loading: isSearchingLocation,
+  } = userProfilesModel.useSearchLocation();
+
+  React.useEffect(() => {
+    if (Boolean(map)) {
+      return;
+    }
+
+    map = new mapboxgl.Map({
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v11",
+    });
+  }, []);
+
   React.useEffect(() => {
     if (!Boolean(createUserError)) {
       return;
@@ -46,6 +69,36 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
     onSuccess();
   }, [createUserData]);
 
+  React.useEffect(() => {
+    if (!Boolean(searchLocationData)) {
+      return;
+    }
+
+    const center = searchLocationData?.center;
+
+    map.setCenter(center);
+
+    const marker = new mapboxgl.Marker({
+      color: "red",
+      draggable: false,
+    })
+      .setLngLat(center)
+      .addTo(map);
+  }, [searchLocationData]);
+
+  const onSearchTextChange = (val: string) => {
+    onDebounceLocationSearch.current.cancel();
+    onDebounceLocationSearch.current(executeSearchLocation, val);
+  };
+
+  const onDebounceLocationSearch = React.useRef(
+    debounce(
+      (search: (variables: { query: string }) => void, searchQuery: string) =>
+        search({ query: searchQuery }),
+      500
+    )
+  );
+
   const onInputValue = (obj: any) => {
     setCreateUserInput({ ...createUserInput, ...obj });
   };
@@ -61,7 +114,9 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
           <h2>Create User</h2>
         </div>
         <div className="map-form row">
-          <div className="map-container col-lg-5"></div>
+          <div className="map-container col-lg-5">
+            <div id="map"></div>
+          </div>
           <div className="form-container col-lg-7">
             <fieldset>
               <label className="form-label" htmlFor="name">
@@ -89,6 +144,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
                 className="form-control"
                 value={createUserInput.address}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  onSearchTextChange(event.currentTarget.value);
                   onInputValue({
                     address: event.currentTarget.value,
                   });
