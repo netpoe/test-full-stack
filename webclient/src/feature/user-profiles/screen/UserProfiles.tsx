@@ -3,10 +3,10 @@ import React from "react";
 import { Container, Modal } from "../../../common/component";
 import { colors, maxWidth } from "../../../common/theme/light";
 import {
-  ComponentReferenceProps as UsersListComponentReferenceProps,
   CreateUserCard,
   UpdateUserCard,
   UsersList,
+  UsersListComponentReferenceProps,
 } from "../component";
 import "../styles/user-profiles.scss";
 

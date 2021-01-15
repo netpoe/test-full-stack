@@ -12,12 +12,12 @@ type Props = {
   onDisplayCreateUserModal: () => void;
 };
 
-export type ComponentReferenceProps = {
+export type UsersListComponentReferenceProps = {
   refetch: () => void;
 };
 
 const Component: React.ForwardRefRenderFunction<
-  ComponentReferenceProps,
+  UsersListComponentReferenceProps,
   Props
 > = ({ children, onUpdateUserItem, onDisplayCreateUserModal }, ref) => {
   const url = new URL(window.location.href);

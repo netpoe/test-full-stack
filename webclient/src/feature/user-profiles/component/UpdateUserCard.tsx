@@ -5,6 +5,7 @@ import {
 import React, { ChangeEvent } from "react";
 import DependencyContext from "../../../common/context/DependencyContext";
 import { UserProfilesModel } from "../model/UserProfilesModel";
+import { Map, MapComponentReferenceProps } from "./Map";
 
 type Props = {
   onCancel: () => void;
@@ -21,6 +22,7 @@ const Component: React.FC<Props> = ({
   const [updateUserInput, setUpdateUserInput] = React.useState<UpdateUserInput>(
     user
   );
+  const mapRef = React.createRef<MapComponentReferenceProps>();
 
   const container = React.useContext(DependencyContext);
   const userProfilesModel = container.get<UserProfilesModel>(
@@ -33,6 +35,14 @@ const Component: React.FC<Props> = ({
     error: updateUserError,
     loading: isUpdateUserQueryLoading,
   } = userProfilesModel.useUpdateUserMutation();
+
+  React.useEffect(() => {
+    if (!Boolean(updateUserInput?.address)) {
+      return;
+    }
+
+    mapRef.current?.onSearchTextChange(updateUserInput?.address);
+  }, []);
 
   React.useEffect(() => {
     if (!Boolean(updateUserError)) {
@@ -65,7 +75,9 @@ const Component: React.FC<Props> = ({
           <h2>Edit User</h2>
         </div>
         <div className="map-form row">
-          <div className="map-container col-lg-5"></div>
+          <div className="map-container col-lg-5">
+            <Map ref={mapRef} />
+          </div>
           <div className="form-container col-lg-7">
             <fieldset>
               <label className="form-label" htmlFor="name">
@@ -93,6 +105,7 @@ const Component: React.FC<Props> = ({
                 className="form-control"
                 value={updateUserInput.address}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  mapRef.current?.onSearchTextChange(event.currentTarget.value);
                   onInputValue({
                     address: event.currentTarget.value,
                   });
