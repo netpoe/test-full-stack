@@ -14,6 +14,8 @@ type Props = {
 
 export type UsersListComponentReferenceProps = {
   refetch: () => void;
+  search: (query: string) => void;
+  clearSearchResults: () => void;
 };
 
 const Component: React.ForwardRefRenderFunction<
@@ -29,6 +31,7 @@ const Component: React.ForwardRefRenderFunction<
   );
   const [isRefetching, setIsRefetching] = React.useState(false);
   const [items, setItems] = React.useState<Array<User>>([]);
+  const [searchResult, setSearchResult] = React.useState<Array<User>>([]);
 
   const container = React.useContext(DependencyContext);
   const userProfilesModel = container.get<UserProfilesModel>(
@@ -63,7 +66,23 @@ const Component: React.ForwardRefRenderFunction<
 
   React.useImperativeHandle(ref, () => ({
     refetch,
+    search,
+    clearSearchResults,
   }));
+
+  const search = (query: string) => {
+    if (query.length === 0) {
+      clearSearchResults();
+      return;
+    }
+
+    const searchTerm = new RegExp(query, "gi");
+    setSearchResult(items.filter((item) => searchTerm.test(item.name)));
+  };
+
+  const clearSearchResults = () => {
+    setSearchResult([]);
+  };
 
   const refetch = () => {
     setIsRefetching(true);
@@ -107,6 +126,32 @@ const Component: React.ForwardRefRenderFunction<
     </article>
   );
 
+  const UserCard = (item: User, i: number) => (
+    <article className="item" key={i}>
+      <div className="card">
+        <div className="actions">
+          <span
+            className="edit icon-pencil"
+            onClick={() => {
+              onUpdateUserItem(item as User);
+            }}
+          ></span>
+        </div>
+        <div className="profile-picture">
+          <ProfilePicture />
+        </div>
+        <div className="name-created-at">
+          <span className="name">{item?.name}</span>
+          <div className="created-at">
+            <span>created:</span>{" "}
+            {moment(item?.createdAt).format("DD MMM YYYY")}
+          </div>
+        </div>
+        <p className="description">{item?.description}</p>
+      </div>
+    </article>
+  );
+
   if (isGetUsersQueryLoading || isRefetching) {
     return <p>Loading...</p>;
   }
@@ -115,36 +160,19 @@ const Component: React.ForwardRefRenderFunction<
     return <section id="list">{NewUserCard}</section>;
   }
 
+  if (searchResult.length > 0) {
+    return (
+      <section id="list">
+        {searchResult?.map((item, i) => UserCard(item, i))}
+      </section>
+    );
+  }
+
   return (
     <>
       <section id="list">
         {NewUserCard}
-
-        {items?.map((item, i) => (
-          <article className="item" key={i}>
-            <div className="card">
-              <div className="actions">
-                <span
-                  className="edit icon-pencil"
-                  onClick={() => {
-                    onUpdateUserItem(item as User);
-                  }}
-                ></span>
-              </div>
-              <div className="profile-picture">
-                <ProfilePicture />
-              </div>
-              <div className="name-created-at">
-                <span className="name">{item?.name}</span>
-                <div className="created-at">
-                  <span>created:</span>{" "}
-                  {moment(item?.createdAt).format("DD MMM YYYY")}
-                </div>
-              </div>
-              <p className="description">{item?.description}</p>
-            </div>
-          </article>
-        ))}
+        {items?.map((item, i) => UserCard(item, i))}
       </section>
       {shouldLoadMore && (
         <div className="load-more">

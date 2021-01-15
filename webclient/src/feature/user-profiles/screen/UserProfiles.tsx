@@ -1,5 +1,5 @@
 import { User } from "@sf-test/shared/graphql/generated/schema";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Container, Modal } from "../../../common/component";
 import { colors, maxWidth } from "../../../common/theme/light";
 import {
@@ -17,6 +17,7 @@ const Component: React.FC<{}> = () => {
   const [isUpdateUserModalVisible, displayUpdateUserModal] = React.useState(
     false
   );
+  const [searchQuery, setSearchQuery] = React.useState<string>();
   const [currentUserItem, setCurrentUserItem] = React.useState<User>();
   const usersListRef = React.createRef<UsersListComponentReferenceProps>();
 
@@ -65,7 +66,24 @@ const Component: React.FC<{}> = () => {
       </Modal>
 
       <div id="user-profiles">
-        <h1>Users List</h1>
+        <div className="row">
+          <div className="col-lg-6">
+            <h1>Users List</h1>
+          </div>
+          <div className="col"></div>
+          <div className="col-lg-4">
+            <input
+              type="text"
+              className="form-control form-control-lg"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                setSearchQuery(event.currentTarget.value);
+                usersListRef.current?.search(event.currentTarget.value);
+              }}
+            />
+          </div>
+        </div>
         <UsersList
           onUpdateUserItem={onUpdateUserItem}
           onDisplayCreateUserModal={onDisplayCreateUserModal}
