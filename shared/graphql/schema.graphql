@@ -41,6 +41,6 @@ input UpdateUserInput {
 }
 
 input GetUsersInput {
-  pageSize: String!
+  pageSize: Int!
   exclusiveStartKey: String
 }

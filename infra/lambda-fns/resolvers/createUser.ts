@@ -5,19 +5,21 @@ var uuid = require("uuid");
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 export async function createUser(input: CreateUserInput) {
+  const Item = {
+    ...input,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    id: uuid.v4(),
+  };
+
   const params = {
     TableName: process.env.USER_TABLE,
-    Item: {
-      ...input,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      id: uuid.v4(),
-    },
+    Item,
   };
 
   try {
     await docClient.put(params).promise();
-    return input;
+    return Item;
   } catch (err) {
     console.log("DynamoDB error: ", err);
     return null;

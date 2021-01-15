@@ -51,12 +51,12 @@ $maxWidth: (
   @include box-shadow();
   background-color: map-get($colors, white);
   border-radius: $xs;
-  min-height: 290px;
+  min-height: 300px;
   width: 100%;
 }
 
 #modal {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
@@ -73,24 +73,8 @@ $maxWidth: (
 }
 
 .btn {
-  font-weight: map-get($fontWeights, bold);
-  // &:hover {
-  //   cursor: pointer;
-  // }
-  // &.btn-default {
-  //   background-color: map-get($colors, white);
-  //   border: 2px solid map-get($colors, gray5);
-  // }
-  // &.btn-outline {
-  //   background-color: transparent;
-  // }
-  // &.btn-large {
-  //   padding-bottom: $sm;
-  //   padding-top: $sm;
-  //   padding-right: $md;
-  //   padding-left: $md;
-  //   border-radius: map-get($borderRadius, large);
-  // }
+  // font-weight: map-get($fontWeights, bold);
+  text-transform: uppercase;
   &.full-width {
     width: 100%;
   }
@@ -108,21 +92,6 @@ label {
 input {
   box-sizing: border-box;
 }
-
-// .input {
-//   background-color: white;
-//   padding-bottom: $xs;
-//   padding-top: $xs;
-//   padding-right: $sm;
-//   padding-left: $sm;
-//   border: 1px solid map-get($colors, gray5);
-//   display: block;
-//   &.full-width {
-//     min-width: 100%;
-//     max-width: 100%;
-//   }
-//   border-radius: map-get($borderRadius, large);
-// }
 
 fieldset {
   margin-bottom: $sm;
