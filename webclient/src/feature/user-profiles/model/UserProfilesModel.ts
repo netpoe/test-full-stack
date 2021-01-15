@@ -1,6 +1,7 @@
 import { GraphQLResult } from "@aws-amplify/api/lib-esm/types/index";
 import {
   CreateUserInput,
+  GetLocationByAddress,
   GetUsersInput,
   Mutation,
   Query,
@@ -9,13 +10,13 @@ import {
   UsersWithPaginationParams,
 } from "@sf-test/shared/graphql/generated/schema";
 import { API, graphqlOperation } from "aws-amplify";
-import axios from "axios";
 import { injectable } from "inversify";
 import { LngLatLike } from "mapbox-gl";
 import React from "react";
 import "reflect-metadata";
 import {
   createUserMutation,
+  getLocationByAddressQuery,
   getUsersQuery,
   updateUserMutation,
 } from "../queries";
@@ -23,6 +24,7 @@ import {
 type GetUsersQueryResult = Pick<Query, "getUsers">;
 type CreateUserQueryResult = Pick<Mutation, "createUser">;
 type UpdateUserQueryResult = Pick<Mutation, "updateUser">;
+type GetLocationByAddressQueryResult = Pick<Query, "getLocationByAddress">;
 export type MapboxSearchResult = { center: LngLatLike };
 
 @injectable()
@@ -173,9 +175,9 @@ export class UserProfilesModel {
   }
 
   useSearchLocation(): {
-    execute: (variables: { query: string }) => Promise<void>;
+    execute: (address: string) => Promise<void>;
     error?: Error;
-    data: MapboxSearchResult;
+    data: GetLocationByAddress & { center: LngLatLike };
     loading: boolean;
   } {
     const [loading, setIsLoading] = React.useState(false);
@@ -183,24 +185,31 @@ export class UserProfilesModel {
     const [data, setData] = React.useState<any>();
 
     return {
-      execute: async (variables) => {
+      execute: async (address) => {
         try {
           setIsLoading(true);
 
-          const response = await axios.get(
-            `https://api.mapbox.com/geocoding/v5/mapbox.places/${variables.query}.json`,
-            {
-              params: {
-                access_token: UserProfilesModel.mapbox_access_token,
-              },
-            }
-          );
+          const query = graphqlOperation(getLocationByAddressQuery, {
+            address,
+          });
 
-          if (!Boolean(response?.data)) {
-            throw new Error("No data!");
+          const { data: result, errors } = (await API.graphql(
+            query
+          )) as GraphQLResult<GetLocationByAddressQueryResult>;
+
+          if (!Boolean(result?.getLocationByAddress)) {
+            setError(new Error("No data!"));
+            return;
           }
 
-          setData({ center: response.data.features[0].center });
+          if (errors?.length) {
+            setError(errors[0]);
+            return;
+          }
+
+          setData(
+            (result as GetLocationByAddressQueryResult).getLocationByAddress
+          );
         } catch (error) {
           console.error(error);
           setError(error);

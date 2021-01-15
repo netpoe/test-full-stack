@@ -64,8 +64,8 @@ const Component: React.ForwardRefRenderFunction<
 
   const onDebounceLocationSearch = React.useRef(
     debounce(
-      (search: (variables: { query: string }) => void, searchQuery: string) =>
-        search({ query: searchQuery }),
+      (search: (address: string) => void, searchQuery: string) =>
+        search(searchQuery),
       500
     )
   );
