@@ -3,12 +3,7 @@ import {
   GetUsersInput,
   UpdateUserInput,
 } from "@sf-test/shared/graphql/generated/schema";
-import {
-  createUser,
-  getLocationByAddress,
-  getUsers,
-  updateUser,
-} from "./resolvers";
+import { createUser, getUsers, updateUser } from "./resolvers";
 
 type AppSyncEvent = {
   info: {
@@ -18,7 +13,6 @@ type AppSyncEvent = {
     createUserInput: CreateUserInput;
     updateUserInput: UpdateUserInput;
     getUsersInput: GetUsersInput;
-    address: string;
   };
 };
 
@@ -30,8 +24,6 @@ exports.handler = async (event: AppSyncEvent) => {
       return await updateUser(event.arguments.updateUserInput);
     case "getUsers":
       return await getUsers(event.arguments.getUsersInput);
-    case "getLocationByAddress":
-      return await getLocationByAddress(event.arguments.address);
     default:
       return null;
   }
