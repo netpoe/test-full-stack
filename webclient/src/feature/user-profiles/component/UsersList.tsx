@@ -88,55 +88,37 @@ const Component: React.ForwardRefRenderFunction<
     window.history.pushState({}, "", url.href);
   };
 
+  const NewUserCard = (
+    <article className="item">
+      <div className="card center-items">
+        <div className="actions"></div>
+        <div className="profile-picture">
+          <ProfilePicture preventImageFetch={true} />
+        </div>
+        <div className="description">
+          <button
+            className="btn btn-outline-primary full-width"
+            onClick={onDisplayCreateUserModal}
+          >
+            Create a user
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+
   if (isGetUsersQueryLoading || isRefetching) {
     return <p>Loading...</p>;
   }
 
   if (items.length === 0) {
-    return (
-      <section id="list">
-        <article className="item">
-          <div className="card">
-            <div className="actions"></div>
-            <div className="profile-picture">
-              <ProfilePicture preventImageFetch={true} />
-            </div>
-            <div className="name-created-at">
-              <span className="name">No items</span>
-            </div>
-            <div className="description">
-              <button
-                className="btn btn-outline-primary full-width btn-lg"
-                onClick={onDisplayCreateUserModal}
-              >
-                Create a user
-              </button>
-            </div>
-          </div>
-        </article>
-      </section>
-    );
+    return <section id="list">{NewUserCard}</section>;
   }
 
   return (
     <>
       <section id="list">
-        <article className="item">
-          <div className="card">
-            <div className="actions"></div>
-            <div className="profile-picture">
-              <ProfilePicture preventImageFetch={true} />
-            </div>
-            <div className="name-created-at">
-              <button
-                className="btn btn-outline-primary full-width btn-lg"
-                onClick={onDisplayCreateUserModal}
-              >
-                Create a user
-              </button>
-            </div>
-          </div>
-        </article>
+        {NewUserCard}
 
         {items?.map((item, i) => (
           <article className="item" key={i}>

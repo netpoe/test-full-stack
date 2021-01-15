@@ -1,3 +1,6 @@
+@import "~bootstrap/scss/_functions.scss";
+@import "~bootstrap/scss/_variables.scss";
+
 $fontSize: 16px;
 
 $xs: 0.5rem;
@@ -6,8 +9,9 @@ $md: 1.7rem;
 $lg: 2.8rem;
 
 $colors: (
-  whitesmoke: whitesmoke,
+  whitesmoke: map-get($grays, "200"),
   white: white,
+  blue: blue,
   textSecondary: rgba(0, 0, 0, 0.7),
   error: red,
   gray5: rgb(124, 123, 143),

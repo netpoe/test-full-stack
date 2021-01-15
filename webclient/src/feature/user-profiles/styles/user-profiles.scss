@@ -15,7 +15,6 @@
       > div {
         @include box-shadow(3px);
       }
-      cursor: pointer;
     }
   }
   .actions {
@@ -23,18 +22,31 @@
     padding-bottom: 0;
     display: flex;
     justify-content: flex-end;
+    .icon-pencil {
+      cursor: pointer;
+    }
   }
   .profile-picture {
     padding: $sm;
     display: flex;
     justify-content: center;
     span {
-      background-color: map-get($colors, whitesmoke);
+      background-color: map-get($grays, "200");
       background-repeat: no-repeat;
       background-size: cover;
       width: 140px;
       height: 140px;
       border-radius: 50%;
+      display: flex;
+      &:before {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-grow: 1;
+        justify-content: center;
+        font-size: 2.5rem;
+        color: map-get($theme-colors, primary);
+      }
     }
   }
   .name-created-at {
@@ -50,14 +62,14 @@
     .created-at {
       font-size: map-get($fontSizes, caption);
       span {
-        color: map-get($colors, error);
+        color: map-get($theme-colors, danger);
       }
     }
   }
   .description {
     padding: $sm;
     margin: 0;
-    color: map-get($colors, textSecondary);
+    color: map-get($theme-colors, secondary);
     font-size: map-get($fontSizes, h6);
   }
 }

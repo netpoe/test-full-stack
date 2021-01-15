@@ -21,13 +21,22 @@ const Component: React.FC<Props> = ({ preventImageFetch = false }) => {
     getRandomProfilePic();
   }, []);
 
+  if (preventImageFetch) {
+    return <span className="icon-plus-circle"></span>;
+  }
+
   const getRandomProfilePic = async () => {
     try {
       const result = await unsplash.photos.getRandom({
         query: "face",
+        featured: true,
+        orientation: "squarish",
+        count: 30,
       });
 
-      const { urls } = result.response;
+      const { urls } = result.response[
+        Math.floor(Math.random() * result.response.length)
+      ];
 
       setURL(urls.thumb);
     } catch (error) {
