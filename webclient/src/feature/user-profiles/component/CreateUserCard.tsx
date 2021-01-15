@@ -1,12 +1,8 @@
 import { CreateUserInput } from "@sf-test/shared/graphql/generated/schema";
-import mapboxgl from "mapbox-gl";
 import React, { ChangeEvent } from "react";
 import DependencyContext from "../../../common/context/DependencyContext";
 import { UserProfilesModel } from "../model/UserProfilesModel";
 import { Map, MapComponentReferenceProps } from "./Map";
-
-mapboxgl.accessToken = UserProfilesModel.mapbox_access_token;
-let map: mapboxgl.Map;
 
 type Props = {
   onCancel: () => void;

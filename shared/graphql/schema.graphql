@@ -1,12 +1,17 @@
 type Query {
   getUserByID(id: String!): User!
   getUsers(getUsersInput: GetUsersInput!): UsersWithPaginationParams!
+  getLocationByAddress(address: String!): GetLocationByAddress!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   deleteUserByID(deleteUserByIdInput: String!): Boolean!
+}
+
+type GetLocationByAddress {
+  center: [Float]
 }
 
 type User {
