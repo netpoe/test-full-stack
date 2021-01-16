@@ -1,0 +1,103 @@
+@import "./common/styles/variables.scss";
+@import "./common/styles/mixins.scss";
+@import "./common/styles/_fonts.scss";
+@import "~bootstrap/scss/bootstrap-grid.scss";
+@import "~bootstrap/scss/mixins/_border-radius.scss";
+@import "~bootstrap/scss/mixins/_transition.scss";
+@import "~bootstrap/scss/mixins/_gradients.scss";
+@import "~bootstrap/scss/mixins/_forms.scss";
+@import "~bootstrap/scss/mixins/_buttons.scss";
+@import "~bootstrap/scss/mixins/_box-shadow.scss";
+@import "~bootstrap/scss/_reboot.scss";
+@import "~bootstrap/scss/_forms.scss";
+@import "~bootstrap/scss/_buttons.scss";
+
+html {
+  font-size: $fontSize;
+}
+
+body {
+  margin: 0;
+  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@each $name, $value in $colors {
+  .bg-#{$name} {
+    background-color: $value;
+  }
+}
+
+$maxWidth: (
+  large: 80vw,
+);
+
+@each $name, $value in $maxWidth {
+  .max-width-#{$name} {
+    max-width: $value;
+    margin: 0 auto;
+  }
+}
+
+.card {
+  @include box-shadow();
+  background-color: map-get($colors, white);
+  border-radius: $xs;
+  min-height: 300px;
+  width: 100%;
+  &.center-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+#modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  font-weight: map-get($fontWeights, regular);
+  text-transform: uppercase;
+  &.full-width {
+    width: 100%;
+  }
+}
+
+// FORM
+
+label {
+  display: block;
+  font-weight: map-get($fontWeights, bold);
+  font-size: map-get($fontSizes, caption);
+  margin-bottom: $xs;
+}
+
+input {
+  box-sizing: border-box;
+}
+
+fieldset {
+  margin-bottom: $sm;
+}
