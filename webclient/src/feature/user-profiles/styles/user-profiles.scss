@@ -1,0 +1,111 @@
+@import "../../../common/styles/variables.scss";
+@import "../../../common/styles/mixins.scss";
+
+#user-profiles {
+  padding: $lg;
+}
+
+#map {
+  height: 100%;
+  border-radius: map-get($borderRadius, large);
+}
+
+#list {
+  @include make-row($sm);
+  flex-wrap: wrap;
+  .item {
+    padding: $sm;
+    width: 33.33%;
+    &:hover {
+      > div {
+        @include box-shadow(3px);
+      }
+    }
+  }
+  .actions {
+    padding: $sm;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+    .icon-pencil {
+      cursor: pointer;
+    }
+  }
+  .profile-picture {
+    padding: $sm;
+    display: flex;
+    justify-content: center;
+    span {
+      background-color: map-get($grays, "200");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      display: flex;
+      &:before {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-grow: 1;
+        justify-content: center;
+        font-size: 2.5rem;
+        color: map-get($theme-colors, primary);
+      }
+    }
+  }
+  .name-created-at {
+    padding: $sm;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .name {
+      text-transform: uppercase;
+      font-weight: map-get($fontWeights, bold);
+    }
+    .created-at {
+      font-size: map-get($fontSizes, caption);
+      span {
+        color: map-get($theme-colors, danger);
+      }
+    }
+  }
+  .description {
+    padding: $sm;
+    margin: 0;
+    color: map-get($theme-colors, secondary);
+    font-size: map-get($fontSizes, h6);
+  }
+}
+
+#create-user-card {
+  width: 74vw;
+  .card {
+    background-color: map-get($colors, whitesmoke);
+  }
+  .title {
+    padding: $md;
+  }
+  .map-form {
+    padding: $md;
+    .map-container {
+      width: 40%;
+      padding: $sm;
+    }
+    .form-container {
+      width: 60%;
+      padding: $sm;
+    }
+  }
+  .actions {
+    .action {
+    }
+  }
+}
+
+.load-more {
+  display: flex;
+  justify-content: center;
+  padding: $md;
+}

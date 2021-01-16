@@ -1,0 +1,10 @@
+@mixin box-shadow($shade: 1px) {
+  box-shadow: $shade $shade 3px rgba(0, 0, 0, 0.1);
+}
+
+@mixin make-row($size) {
+  margin-right: -$size;
+  margin-left: -$size;
+  display: flex;
+  flex-direction: row;
+}
