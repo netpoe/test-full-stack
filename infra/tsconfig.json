@@ -18,7 +18,9 @@
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "typeRoots": ["./node_modules/@types"],
-    "outDir": "build"
+    "outDir": "build",
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "exclude": ["cdk.out", "cdk", "build"]
 }

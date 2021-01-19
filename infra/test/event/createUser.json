@@ -1,0 +1,13 @@
+{
+  "info": {
+    "fieldName": "createUser"
+  },
+  "arguments": {
+    "createUserInput": {
+      "name": "User Name",
+      "dob": "2021-01-01",
+      "address": "An address",
+      "description": "A description"
+    }
+  }
+}
