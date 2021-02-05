@@ -127,7 +127,7 @@ const Component: React.ForwardRefRenderFunction<
   );
 
   const UserCard = (item: User, i: number) => (
-    <article className="item" key={i}>
+    <article className="item" key={i} data-testid={`user-card-${i}`}>
       <div className="card">
         <div className="actions">
           <span
