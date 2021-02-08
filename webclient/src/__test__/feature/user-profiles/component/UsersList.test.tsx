@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { UsersWithPaginationParams } from "@sf-test/shared/graphql/generated/schema";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
@@ -27,12 +28,7 @@ describe("UsersList", () => {
       loading: true,
     }));
 
-    render(
-      <UsersList
-        onDisplayCreateUserModal={() => null}
-        onUpdateUserItem={() => null}
-      />
-    );
+    render(<UsersList onDisplayCreateUserModal={() => null} onUpdateUserItem={() => null} />);
 
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
@@ -43,12 +39,7 @@ describe("UsersList", () => {
       loading: false,
     }));
 
-    render(
-      <UsersList
-        onDisplayCreateUserModal={() => null}
-        onUpdateUserItem={() => null}
-      />
-    );
+    render(<UsersList onDisplayCreateUserModal={() => null} onUpdateUserItem={() => null} />);
 
     expect(screen.getByText("Create a user")).toBeInTheDocument();
   });
@@ -59,13 +50,34 @@ describe("UsersList", () => {
       loading: false,
     }));
 
-    render(
-      <UsersList
-        onDisplayCreateUserModal={() => null}
-        onUpdateUserItem={() => null}
-      />
-    );
+    render(<UsersList onDisplayCreateUserModal={() => null} onUpdateUserItem={() => null} />);
 
     expect(screen.queryByTestId("user-card-0")).not.toBeInTheDocument();
+  });
+
+  test("there should be 1 UserCard ", () => {
+    const data: UsersWithPaginationParams = {
+      items: [
+        {
+          id: "1",
+          name: "NAME 1",
+          dob: "2021-01-01",
+          address: "an address",
+          description: "a description",
+          createdAt: "2021-01-01",
+          updatedAt: "2021-01-01",
+        },
+      ],
+    };
+
+    spy.mockImplementation(() => ({
+      execute: jest.fn(),
+      loading: false,
+      data,
+    }));
+
+    render(<UsersList onDisplayCreateUserModal={() => null} onUpdateUserItem={() => null} />);
+
+    expect(screen.queryByTestId("user-card-0")).toBeInTheDocument();
   });
 });
