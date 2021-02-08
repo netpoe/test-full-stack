@@ -1,9 +1,7 @@
 import Amplify from "aws-amplify";
 import React from "react";
 import "./App.scss";
-import DependencyContext, {
-  container,
-} from "./common/context/DependencyContext";
+import DependencyContext, { container } from "./common/context/DependencyContext";
 import { UserProfiles } from "./feature/user-profiles/screen";
 
 Amplify.configure({

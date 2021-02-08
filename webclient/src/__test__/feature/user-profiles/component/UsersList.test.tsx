@@ -1,16 +1,10 @@
-/* eslint-disable */
 import { UsersWithPaginationParams } from "@sf-test/shared/graphql/generated/schema";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 import * as React from "react";
+import { container } from "../../../../common/context/DependencyContext";
 import { UsersList } from "../../../../feature/user-profiles/component";
-import { container } from "../../../mock/DependencyContext.mock";
-import { UserProfilesModel } from "../../../mock/UserProfilesModel.mock";
-
-jest.mock(
-  "../../../../common/context/DependencyContext",
-  () => require("../../../mock/DependencyContext.mock").default
-);
+import { UserProfilesModel } from "../../../../feature/user-profiles/model/UserProfilesModel";
 
 const spy = jest.spyOn(
   container.get<UserProfilesModel>(UserProfilesModel.type),
@@ -18,10 +12,6 @@ const spy = jest.spyOn(
 );
 
 describe("UsersList", () => {
-  afterEach(() => {
-    spy.mockClear();
-  });
-
   test("it should display 'loading' state on first render", () => {
     spy.mockImplementation(() => ({
       execute: jest.fn(),

@@ -1,10 +1,12 @@
 import {
+  CreateUserInput,
   GetUsersInput,
+  User,
   UsersWithPaginationParams,
 } from "@sf-test/shared/graphql/generated/schema";
 import { injectable } from "inversify";
-import React from "react";
 import "reflect-metadata";
+import { MapboxSearchResult } from "../../feature/user-profiles/model/UserProfilesModel";
 
 @injectable()
 export class UserProfilesModel {
@@ -16,17 +18,33 @@ export class UserProfilesModel {
     data?: UsersWithPaginationParams;
     loading: boolean;
   } {
-    const [loading, setIsLoading] = React.useState(true);
-    const [error, setError] = React.useState<Error>();
-    const [data, setData] = React.useState<UsersWithPaginationParams>();
-
     return {
-      execute: async (variables) => {
-        setIsLoading(false);
-      },
-      error,
-      data,
-      loading,
+      execute: jest.fn(),
+      loading: false,
+    };
+  }
+
+  useCreateUserMutation(): {
+    execute: (variables: CreateUserInput) => Promise<void>;
+    error?: Error;
+    data?: User;
+    loading: boolean;
+  } {
+    return {
+      execute: jest.fn(),
+      loading: false,
+    };
+  }
+
+  useSearchLocation(): {
+    execute: (variables: { query: string }) => Promise<void>;
+    error?: Error;
+    data?: MapboxSearchResult;
+    loading: boolean;
+  } {
+    return {
+      execute: jest.fn(),
+      loading: false,
     };
   }
 }

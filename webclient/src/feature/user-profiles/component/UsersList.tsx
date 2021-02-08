@@ -18,25 +18,21 @@ export type UsersListComponentReferenceProps = {
   clearSearchResults: () => void;
 };
 
-const Component: React.ForwardRefRenderFunction<
-  UsersListComponentReferenceProps,
-  Props
-> = ({ children, onUpdateUserItem, onDisplayCreateUserModal }, ref) => {
+const Component: React.ForwardRefRenderFunction<UsersListComponentReferenceProps, Props> = (
+  { children, onUpdateUserItem, onDisplayCreateUserModal },
+  ref
+) => {
   const url = new URL(window.location.href);
 
   const [queryExecutionCount, setQueryExecutionCount] = React.useState(
-    url.searchParams.get("pageSize")
-      ? Number(url.searchParams.get("pageSize"))
-      : 1
+    url.searchParams.get("pageSize") ? Number(url.searchParams.get("pageSize")) : 1
   );
   const [isRefetching, setIsRefetching] = React.useState(false);
   const [items, setItems] = React.useState<Array<User>>([]);
   const [searchResult, setSearchResult] = React.useState<Array<User>>([]);
 
   const container = React.useContext(DependencyContext);
-  const userProfilesModel = container.get<UserProfilesModel>(
-    UserProfilesModel.type
-  );
+  const userProfilesModel = container.get<UserProfilesModel>(UserProfilesModel.type);
 
   const {
     execute: executeGetUsersQuery,
@@ -116,6 +112,7 @@ const Component: React.ForwardRefRenderFunction<
         </div>
         <div className="description">
           <button
+            data-testid="create-new-user-button"
             className="btn btn-outline-primary full-width"
             onClick={onDisplayCreateUserModal}
           >
@@ -143,8 +140,7 @@ const Component: React.ForwardRefRenderFunction<
         <div className="name-created-at">
           <span className="name">{item?.name}</span>
           <div className="created-at">
-            <span>created:</span>{" "}
-            {moment(item?.createdAt).format("DD MMM YYYY")}
+            <span>created:</span> {moment(item?.createdAt).format("DD MMM YYYY")}
           </div>
         </div>
         <p className="description">{item?.description}</p>
@@ -161,11 +157,7 @@ const Component: React.ForwardRefRenderFunction<
   }
 
   if (searchResult.length > 0) {
-    return (
-      <section id="list">
-        {searchResult?.map((item, i) => UserCard(item, i))}
-      </section>
-    );
+    return <section id="list">{searchResult?.map((item, i) => UserCard(item, i))}</section>;
   }
 
   return (

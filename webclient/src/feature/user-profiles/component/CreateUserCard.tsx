@@ -14,20 +14,16 @@ type Props = {
 };
 
 const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
-  const [createUserInput, setCreateUserInput] = React.useState<CreateUserInput>(
-    {
-      name: "",
-      dob: "",
-      description: "",
-      address: "",
-    }
-  );
+  const [createUserInput, setCreateUserInput] = React.useState<CreateUserInput>({
+    name: "",
+    dob: "",
+    description: "",
+    address: "",
+  });
   const mapRef = React.createRef<MapComponentReferenceProps>();
 
   const container = React.useContext(DependencyContext);
-  const userProfilesModel = container.get<UserProfilesModel>(
-    UserProfilesModel.type
-  );
+  const userProfilesModel = container.get<UserProfilesModel>(UserProfilesModel.type);
 
   const {
     execute: executeCreateUserMutation,
@@ -61,7 +57,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
   };
 
   return (
-    <div id="create-user-card">
+    <div id="create-user-card" data-testid="create-user-card">
       <div className="card">
         <div className="title">
           <h2>Create User</h2>
@@ -76,6 +72,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
                 Name
               </label>
               <input
+                data-testid="create-user-card-name-input"
                 type="text"
                 disabled={isCreateUserQueryLoading}
                 className="form-control"
@@ -139,6 +136,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
             <div className="actions row">
               <div className="action col-lg">
                 <button
+                  data-testid="create-user-card-on-submit-button"
                   className="btn btn-light btn-lg full-width"
                   disabled={isCreateUserQueryLoading}
                   onClick={onSubmit}
