@@ -56,13 +56,15 @@ context("Actions", () => {
     const description = "A description";
     const dob = "2021-01-01";
 
-    cy.get("#create-user-card button").click();
-    cy.get("#create-user-modal-name-input").type(name).should("have.value", name);
-    cy.get("#create-user-modal-address-input").type(address).should("have.value", address);
-    cy.get("#create-user-modal-description-input")
+    cy.get("[data-cy=create-user-modal] button").click();
+    cy.get("[data-testid=create-user-modal-name-input]").type(name).should("have.value", name);
+    cy.get("[data-testid=create-user-modal-address-input]")
+      .type(address)
+      .should("have.value", address);
+    cy.get("[data-testid=create-user-modal-description-input]")
       .type(description)
       .should("have.value", description);
-    cy.get("#create-user-modal-dob-input").type(dob).should("have.value", dob);
+    cy.get("[data-testid=create-user-modal-dob-input]").type(dob).should("have.value", dob);
 
     const response = {
       id: "123",
@@ -96,7 +98,7 @@ context("Actions", () => {
       }
     });
 
-    cy.get("#create-user-card-on-submit-button").click();
+    cy.get("[data-testid=create-user-card-on-submit-button]").click();
 
     cy.wait("@createUserMutation").then((interception) => {
       const body = JSON.parse(interception.response.body);
