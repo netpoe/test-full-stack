@@ -15,7 +15,9 @@ Amplify.configure({
 function App() {
   return (
     <DependencyContext.Provider value={container}>
-      <UserProfiles />
+      <main role="main">
+        <UserProfiles />
+      </main>
     </DependencyContext.Provider>
   );
 }

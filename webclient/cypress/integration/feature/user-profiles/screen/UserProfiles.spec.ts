@@ -48,6 +48,7 @@ context("Actions", () => {
     );
 
     cy.visit("http://localhost:3000");
+    cy.injectAxe();
   });
 
   it("create a new user", () => {
@@ -57,6 +58,8 @@ context("Actions", () => {
     const dob = "2021-01-01";
 
     cy.get("[data-testid=users-list-create-user-card] button").click();
+    cy.checkA11y(null, null, terminalLog);
+
     cy.get("[data-testid=create-user-card-name-input]").type(name).should("have.value", name);
     cy.get("[data-testid=create-user-modal-address-input]")
       .type(address)
@@ -106,3 +109,21 @@ context("Actions", () => {
     });
   });
 });
+
+function terminalLog(violations) {
+  cy.task(
+    "log",
+    `${violations.length} accessibility violation${violations.length === 1 ? "" : "s"} ${
+      violations.length === 1 ? "was" : "were"
+    } detected`
+  );
+  // pluck specific keys to keep the table readable
+  const violationData = violations.map(({ id, impact, description, nodes }) => ({
+    id,
+    impact,
+    description,
+    nodes: nodes.length,
+  }));
+
+  cy.task("table", violationData);
+}

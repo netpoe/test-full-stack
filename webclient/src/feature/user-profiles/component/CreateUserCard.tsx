@@ -72,10 +72,11 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
                 Name
               </label>
               <input
-                data-testid="create-user-card-name-input"
+                aria-label="create-user-card-name-input"
                 type="text"
-                disabled={isCreateUserQueryLoading}
                 className="form-control"
+                disabled={isCreateUserQueryLoading}
+                data-testid="create-user-card-name-input"
                 value={createUserInput.name}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                   onInputValue({
@@ -89,10 +90,11 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
                 Location
               </label>
               <input
+                aria-label="create-user-modal-address-input"
                 type="text"
                 disabled={isCreateUserQueryLoading}
-                data-testid="create-user-modal-address-input"
                 className="form-control"
+                data-testid="create-user-modal-address-input"
                 value={createUserInput.address}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                   mapRef.current?.onSearchTextChange(event.currentTarget.value);
@@ -107,6 +109,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
                 Description
               </label>
               <input
+                aria-label="create-user-modal-description-input"
                 type="text"
                 disabled={isCreateUserQueryLoading}
                 className="form-control"
@@ -124,6 +127,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
                 Date of Birth
               </label>
               <input
+                aria-label="create-user-modal-dob-input"
                 type="text"
                 disabled={isCreateUserQueryLoading}
                 className="form-control"
@@ -148,10 +152,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
                 </button>
               </div>
               <div className="action col-lg">
-                <button
-                  className="btn btn-outline-secondary  btn-lg full-width"
-                  onClick={onCancel}
-                >
+                <button className="btn btn-light btn-lg full-width" onClick={onCancel}>
                   CANCEL
                 </button>
               </div>

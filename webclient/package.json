@@ -55,7 +55,9 @@
     "@types/lodash": "^4.14.167",
     "@types/mapbox-gl": "^2.0.2",
     "@types/unsplash-js": "^7.0.0",
+    "axe-core": "^4.1.2",
     "cypress": "^6.4.0",
+    "cypress-axe": "^0.12.1",
     "sass": "^1.32.4"
   }
 }
