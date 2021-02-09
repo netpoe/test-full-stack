@@ -104,7 +104,7 @@ const Component: React.ForwardRefRenderFunction<UsersListComponentReferenceProps
   };
 
   const NewUserCard = (
-    <article className="item" id="create-user-card">
+    <article className="item" id="create-user-card" data-testid="users-list-create-user-card">
       <div className="card center-items">
         <div className="actions"></div>
         <div className="profile-picture">

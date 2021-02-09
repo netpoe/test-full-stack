@@ -56,8 +56,8 @@ context("Actions", () => {
     const description = "A description";
     const dob = "2021-01-01";
 
-    cy.get("[data-cy=create-user-modal] button").click();
-    cy.get("[data-testid=create-user-modal-name-input]").type(name).should("have.value", name);
+    cy.get("[data-testid=users-list-create-user-card] button").click();
+    cy.get("[data-testid=create-user-card-name-input]").type(name).should("have.value", name);
     cy.get("[data-testid=create-user-modal-address-input]")
       .type(address)
       .should("have.value", address);
