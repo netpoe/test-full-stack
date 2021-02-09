@@ -1,0 +1,45 @@
+{
+  "data": {
+    "getUsers": {
+      "exclusiveStartKey": "{id=78fdee50-17a2-4ffa-aa00-1b319fcf5192}",
+      "items": [
+        {
+          "address": "Seattle, Washington",
+          "createdAt": "2021-01-15T21:38:46.355Z",
+          "description": "A user with location",
+          "dob": "1990-09-09",
+          "id": "60b0fb49-59a0-44e0-a53e-b43fb877e887",
+          "name": "username,",
+          "updatedAt": "2021-02-02T05:01:08.070Z"
+        },
+        {
+          "address": "1 Infinite Loop — Cupertino, CA 95014",
+          "createdAt": "2021-01-13T05:01:03.492Z",
+          "description": "A better description",
+          "dob": "1989-12-25",
+          "id": "0d0a5510-28ef-45c1-b803-fc44121ae640",
+          "name": "User 2",
+          "updatedAt": "2021-01-15T19:53:08.529Z"
+        },
+        {
+          "address": "loc. 5",
+          "createdAt": "2021-01-15T16:50:42.930Z",
+          "description": "desc 5.",
+          "dob": "2021-01-05",
+          "id": "d8e1c68c-6b56-4898-ad20-0cafcc100398",
+          "name": "User Five",
+          "updatedAt": "2021-01-15T18:38:20.402Z"
+        },
+        {
+          "address": "Seattle, Washington ",
+          "createdAt": "2021-01-16T01:43:07.548Z",
+          "description": "Another description",
+          "dob": "2021-01-15",
+          "id": "78fdee50-17a2-4ffa-aa00-1b319fcf5192",
+          "name": "Another Name",
+          "updatedAt": "2021-01-16T01:43:07.548Z"
+        }
+      ]
+    }
+  }
+}

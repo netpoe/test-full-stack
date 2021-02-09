@@ -57,7 +57,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
   };
 
   return (
-    <div id="create-user-card" data-testid="create-user-card">
+    <div id="create-user-modal" data-testid="create-user-card">
       <div className="card">
         <div className="title">
           <h2>Create User</h2>
@@ -73,6 +73,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
               </label>
               <input
                 data-testid="create-user-card-name-input"
+                id="create-user-modal-name-input"
                 type="text"
                 disabled={isCreateUserQueryLoading}
                 className="form-control"
@@ -91,6 +92,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
               <input
                 type="text"
                 disabled={isCreateUserQueryLoading}
+                id="create-user-modal-address-input"
                 className="form-control"
                 value={createUserInput.address}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
@@ -109,6 +111,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
                 type="text"
                 disabled={isCreateUserQueryLoading}
                 className="form-control"
+                id="create-user-modal-description-input"
                 value={createUserInput.description}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                   onInputValue({
@@ -125,6 +128,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
                 type="text"
                 disabled={isCreateUserQueryLoading}
                 className="form-control"
+                id="create-user-modal-dob-input"
                 value={createUserInput.dob}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                   onInputValue({
@@ -137,6 +141,7 @@ const Component: React.FC<Props> = ({ children, onCancel, onSuccess }) => {
               <div className="action col-lg">
                 <button
                   data-testid="create-user-card-on-submit-button"
+                  id="create-user-card-on-submit-button"
                   className="btn btn-light btn-lg full-width"
                   disabled={isCreateUserQueryLoading}
                   onClick={onSubmit}

@@ -30,7 +30,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -54,6 +55,7 @@
     "@types/lodash": "^4.14.167",
     "@types/mapbox-gl": "^2.0.2",
     "@types/unsplash-js": "^7.0.0",
+    "cypress": "^6.4.0",
     "sass": "^1.32.4"
   }
 }

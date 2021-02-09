@@ -1,0 +1,13 @@
+{
+  "data": {
+    "createUser": {
+      "address": "An address",
+      "createdAt": "2021-02-09T01:17:55.351Z",
+      "description": "A description",
+      "dob": "2021-01-01",
+      "id": "04fe5ef4-67ad-41a0-b691-645f2c7d3e57",
+      "name": "A name",
+      "updatedAt": "2021-02-09T01:17:55.351Z"
+    }
+  }
+}
