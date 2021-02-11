@@ -8,15 +8,10 @@ import {
   UsersList,
   UsersListComponentReferenceProps,
 } from "../component";
-import "../styles/user-profiles.scss";
 
 const Component: React.FC<{}> = () => {
-  const [isCreateUserModalVisible, displayCreateUserModal] = React.useState(
-    false
-  );
-  const [isUpdateUserModalVisible, displayUpdateUserModal] = React.useState(
-    false
-  );
+  const [isCreateUserModalVisible, displayCreateUserModal] = React.useState(false);
+  const [isUpdateUserModalVisible, displayUpdateUserModal] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState<string>();
   const [currentUserItem, setCurrentUserItem] = React.useState<User>();
   const usersListRef = React.createRef<UsersListComponentReferenceProps>();
@@ -45,16 +40,9 @@ const Component: React.FC<{}> = () => {
   };
 
   return (
-    <Container
-      bgColor={colors.whitesmoke}
-      maxWidth={maxWidth.large}
-      minHeight="100vh"
-    >
+    <Container bgColor={colors.whitesmoke} maxWidth={maxWidth.large} minHeight="100vh">
       <Modal visible={isCreateUserModalVisible}>
-        <CreateUserCard
-          onCancel={onDisplayCreateUserModal}
-          onSuccess={onCreateUserSuccess}
-        />
+        <CreateUserCard onCancel={onDisplayCreateUserModal} onSuccess={onCreateUserSuccess} />
       </Modal>
 
       <Modal visible={isUpdateUserModalVisible}>

@@ -10,22 +10,16 @@ import {
 } from "@sf-test/shared/graphql/generated/schema";
 import { API, graphqlOperation } from "aws-amplify";
 import axios from "axios";
-import { injectable } from "inversify";
 import { LngLatLike } from "mapbox-gl";
 import React from "react";
 import "reflect-metadata";
-import {
-  createUserMutation,
-  getUsersQuery,
-  updateUserMutation,
-} from "../queries";
+import { createUserMutation, getUsersQuery, updateUserMutation } from "../queries";
 
 type GetUsersQueryResult = Pick<Query, "getUsers">;
 type CreateUserQueryResult = Pick<Mutation, "createUser">;
 type UpdateUserQueryResult = Pick<Mutation, "updateUser">;
 export type MapboxSearchResult = { center: LngLatLike };
 
-@injectable()
 export class UserProfilesModel {
   static type = "UserProfilesModel";
   static mapbox_access_token =

@@ -22,11 +22,9 @@ const Component: React.ForwardRefRenderFunction<UsersListComponentReferenceProps
   { children, onUpdateUserItem, onDisplayCreateUserModal },
   ref
 ) => {
-  const url = new URL(window.location.href);
+  const url = React.useRef<URL>(new URL("http://locahost:3000"));
 
-  const [queryExecutionCount, setQueryExecutionCount] = React.useState(
-    url.searchParams.get("pageSize") ? Number(url.searchParams.get("pageSize")) : 1
-  );
+  const [queryExecutionCount, setQueryExecutionCount] = React.useState(1);
   const [isRefetching, setIsRefetching] = React.useState(false);
   const [items, setItems] = React.useState<Array<User>>([]);
   const [searchResult, setSearchResult] = React.useState<Array<User>>([]);
@@ -42,6 +40,13 @@ const Component: React.ForwardRefRenderFunction<UsersListComponentReferenceProps
   } = userProfilesModel.useGetUsersQuery();
 
   const shouldLoadMore = Boolean(getUsersData?.exclusiveStartKey);
+
+  React.useEffect(() => {
+    url.current = new URL(window.location.href);
+    setQueryExecutionCount(
+      Number(url.current.searchParams.get("pageSize")) ?? queryExecutionCount
+    );
+  }, []);
 
   React.useEffect(() => {
     getUsers();
@@ -99,8 +104,8 @@ const Component: React.ForwardRefRenderFunction<UsersListComponentReferenceProps
   };
 
   const setURLSearchParams = () => {
-    url.searchParams.set("pageSize", queryExecutionCount.toString());
-    window.history.pushState({}, "", url.href);
+    url.current.searchParams.set("pageSize", queryExecutionCount.toString());
+    window.history.pushState({}, "", url.current.href);
   };
 
   const NewUserCard = (

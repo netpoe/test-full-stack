@@ -1,6 +1,5 @@
 import React from "react";
 import { createApi } from "unsplash-js";
-import "../styles/user-profiles.scss";
 
 type Props = {
   preventImageFetch?: boolean;
@@ -34,9 +33,7 @@ const Component: React.FC<Props> = ({ preventImageFetch = false }) => {
         count: 30,
       });
 
-      const { urls } = result.response[
-        Math.floor(Math.random() * result.response.length)
-      ];
+      const { urls } = result.response[Math.floor(Math.random() * result.response.length)];
 
       setURL(urls.thumb);
     } catch (error) {

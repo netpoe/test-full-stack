@@ -1,4 +1,3 @@
-import { jest } from "@jest/globals";
 import { MapboxOptions } from "mapbox-gl";
 
 class Map {

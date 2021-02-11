@@ -1,6 +1,8 @@
-import { Container } from "inversify";
+import { Container, decorate, injectable } from "inversify";
 import React from "react";
 import { UserProfilesModel } from "../../feature/user-profiles/model/UserProfilesModel";
+
+decorate(injectable(), UserProfilesModel);
 
 export const container = new Container();
 
