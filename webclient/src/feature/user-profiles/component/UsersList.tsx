@@ -43,9 +43,8 @@ const Component: React.ForwardRefRenderFunction<UsersListComponentReferenceProps
 
   React.useEffect(() => {
     url.current = new URL(window.location.href);
-    setQueryExecutionCount(
-      Number(url.current.searchParams.get("pageSize")) ?? queryExecutionCount
-    );
+    const pageSize = url.current.searchParams.get("pageSize");
+    setQueryExecutionCount(Boolean(pageSize) ? Number(pageSize) : queryExecutionCount);
   }, []);
 
   React.useEffect(() => {

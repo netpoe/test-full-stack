@@ -1,9 +1,18 @@
+import Amplify from "aws-amplify";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import "../feature/user-profiles/styles/user-profiles.scss";
 import "../index.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  Amplify.configure({
+    aws_appsync_region: "us-west-2",
+    aws_appsync_graphqlEndpoint:
+      "https://rujtyvr2tvhkbbcibtfozaijyu.appsync-api.us-west-2.amazonaws.com/graphql",
+    aws_appsync_authenticationType: "API_KEY",
+    aws_appsync_apiKey: "da2-6bdqwskg35dlbagvx3h2y3vihm",
+  });
+
   return (
     <>
       <Head>

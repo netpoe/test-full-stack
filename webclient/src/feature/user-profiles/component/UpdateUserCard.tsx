@@ -1,7 +1,4 @@
-import {
-  UpdateUserInput,
-  User,
-} from "@sf-test/shared/graphql/generated/schema";
+import { UpdateUserInput, User } from "@sf-test/shared/graphql/generated/schema";
 import React, { ChangeEvent } from "react";
 import DependencyContext from "../../../common/context/DependencyContext";
 import { UserProfilesModel } from "../model/UserProfilesModel";
@@ -13,21 +10,12 @@ type Props = {
   user: User;
 };
 
-const Component: React.FC<Props> = ({
-  children,
-  onCancel,
-  onSuccess,
-  user,
-}) => {
-  const [updateUserInput, setUpdateUserInput] = React.useState<UpdateUserInput>(
-    user
-  );
+const Component: React.FC<Props> = ({ children, onCancel, onSuccess, user }) => {
+  const [updateUserInput, setUpdateUserInput] = React.useState<UpdateUserInput>(user);
   const mapRef = React.createRef<MapComponentReferenceProps>();
 
   const container = React.useContext(DependencyContext);
-  const userProfilesModel = container.get<UserProfilesModel>(
-    UserProfilesModel.type
-  );
+  const userProfilesModel = container.get<UserProfilesModel>(UserProfilesModel.type);
 
   const {
     execute: executeUpdateUserMutation,
@@ -69,7 +57,7 @@ const Component: React.FC<Props> = ({
   };
 
   return (
-    <div id="create-user-card">
+    <div id="create-user-modal">
       <div className="card">
         <div className="title">
           <h2>Edit User</h2>
